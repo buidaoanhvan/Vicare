@@ -1,0 +1,22 @@
+services:
+  # Reverse Proxy for Nginx
+  nginx:
+    build: ./nginx
+    links:
+      - user_service:user_service
+      - database_user:database_user
+    ports:
+      - "80:80"
+
+  # NodeJS RESTful API Microservice
+  user_service:
+    build: ./user_service
+
+  # Microservice for accessing MongoDB
+  database_user:
+    image: mongo
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: Anhvan1310
